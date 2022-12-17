@@ -1,0 +1,78 @@
+.chat-main-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow-y: auto;
+    margin-bottom: 7rem;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    height: 100%;
+}
+
+.chat-bubble {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    background-color: var(--chat-bacground-color);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    max-width: 70%;
+    padding: 10px;
+    text-align: left;
+}
+
+.chat-bubble:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.chat-bubble-left {
+    float: left;
+    margin-left: 60px;
+    margin-right: auto;
+    background-color: var(--primary-color);
+}
+
+.chat-bubble-left:before {
+    border-top: 20px solid transparent;
+    border-right: 10px solid var(--primary-color);
+    left: -7px;
+    bottom: 0;
+}
+
+.chat-bubble-right {
+    float: right;
+    margin-right: 60px;
+    margin-left: auto;
+    background-color: var(--secondary-color);
+}
+
+.chat-bubble-right:before {
+    border-top: 20px solid transparent;
+    border-left: 10px solid var(--secondary-color);
+    right: -7px;
+    bottom: 0;
+}
+
+.chat-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 20px;
+    font-size: 3rem;
+}
+
+.chat-icon-left {
+    left: -60px;
+}
+
+.chat-icon-right {
+    right: -30px;
+}
