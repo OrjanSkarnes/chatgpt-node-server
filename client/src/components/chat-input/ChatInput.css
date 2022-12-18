@@ -10,7 +10,6 @@
     border-radius: 0.375rem;
     border: 1px solid #ccc;
     background-color: #507a9223;
-    margin-bottom: 1rem;
     box-sizing: border-box;
 
     /* box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow); */
@@ -36,18 +35,25 @@
     position: absolute;
     bottom: 2px;
     right: 0;
-    width: 10%;
     height: 40px;
     border: none;
-    background-color: transparent; 
+    background-color: transparent;
     color: white;
     cursor: pointer;
     fill: black;
+  }
+  
+
+  .input-container .button:hover {
+    background-color: rgba(80, 80, 80, 0.2);
   }
 
   .input-container .button .icon {
     color: grey;
     font-size: 1.5rem;
+    position: absolute;
+    left: 10px;
+    bottom: 6px;
   }
 
   .input-area {

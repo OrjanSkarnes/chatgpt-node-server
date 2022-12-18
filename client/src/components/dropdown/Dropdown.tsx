@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Dropdown.scss';
 // import options json
 import optionsJson from './options.json';
@@ -15,6 +15,11 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
 
 const Dropdown: React.FC<Props> = ({ Change, ...props }) => {
     const options = optionsJson.options;
+
+    useEffect(() => {
+        // Set the default option to be the first option
+        Change(options[0]);
+      }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         // get the value and label of the selected option

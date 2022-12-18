@@ -14,31 +14,29 @@ const api = new ChatGPTAPIBrowser({
 })
 await api.initSession();
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = process.env.DATABASE_URL;
-const client = new MongoClient(uri, { useNewUrlParser: true });
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = process.env.DATABASE_URL;
+// const client = new MongoClient(uri, { useNewUrlParser: true });
 
+// app.post('/conversations', async(req, res) => {
+//     const conversations = req.body;
+//     console.log('trying to post conversation to mongodb')
+//     console.log(req.body)
+//     client.connect((err: any) => {
+//         // Connect to the MongoDB server
+//         console.log('Connected to MongoDB server');
+//         const db = client.db("conversations");
 
-
-app.post('/conversations', async(req, res) => {
-    const conversations = req.body;
-    console.log('trying to post conversation to mongodb')
-    console.log(req.body)
-    client.connect((err: any) => {
-        // Connect to the MongoDB server
-        console.log('Connected to MongoDB server');
-        const db = client.db("conversations");
-
-        db.collection("coversations").insertOne(conversations, (err: any, result: any) => {
-            if (err) {
-                // Handle error
-                return res.send({ error: "An error occurred" });
-            }
-            res.send(result.ops[0]);
-        });
-        client.close();
-    });
-})
+//         db.collection("coversations").insertOne(conversations, (err: any, result: any) => {
+//             if (err) {
+//                 // Handle error
+//                 return res.send({ error: "An error occurred" });
+//             }
+//             res.send(result.ops[0]);
+//         });
+//         client.close();
+//     });
+// })
 
 
 app.get('/chat/:message', async (req, res) => {

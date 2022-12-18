@@ -6,11 +6,10 @@ import Loading from '../loading/Loading';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
-  clearThread: () => void;
   loading: boolean;
 }
 
-const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, clearThread, loading }) => {
+const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, loading }) => {
   const [message, setMessage] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -47,7 +46,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, clearThread, loadi
           {loading ? <Loading /> : <AiOutlineSend className="icon" />}
         </button>
       </div>
-      <button onClick={clearThread} className="reset-button button">Reset thread</button>
     </div>
   );
 };

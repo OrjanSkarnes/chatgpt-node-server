@@ -3,6 +3,7 @@ import ChatContainer from './components/chat-container/ChatContainer';
 import ChatInput from './components/chat-input/ChatInput';
 import Dropdown from './components/dropdown/Dropdown';
 import './App.css';
+import SideBar from "./components/sidebar/SideBar";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -73,16 +74,17 @@ function App() {
 
   return (
     <div className="app">
-      <main>
-        <header className="App-header">
+      <SideBar clearThread={clearThread} />
+      <div className="main-content">
+        <main>
           <h1>Chat with {selectedOption.label || "ChatGPT"}</h1>
-        </header>
-        {selectedOption.info && <p>{selectedOption.info}</p>}
-        <button onClick={postConversation}>Post Conversation</button>
-        <Dropdown Change={dropdownChange}></Dropdown>
-        <ChatContainer leftChats={gptResponses} rightChats={messages} selectedOption={selectedOption}></ChatContainer>
-        <ChatInput onSendMessage={sendToChatGPT} loading={loading} clearThread={clearThread} />
-      </main>
+          {selectedOption.info && <p>{selectedOption.info}</p>}
+          {/* <button onClick={postConversation}>Post Conversation</button> */}
+          <Dropdown Change={dropdownChange}></Dropdown>
+          <ChatContainer leftChats={gptResponses} rightChats={messages} selectedOption={selectedOption}></ChatContainer>
+          <ChatInput onSendMessage={sendToChatGPT} loading={loading} />
+        </main>
+      </div>
     </div>
   );
 }
