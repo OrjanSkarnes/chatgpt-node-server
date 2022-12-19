@@ -1,15 +1,17 @@
 :root {
-  --primary-color: #F06292;
-  --secondary-color: #4DB6AC;
-  --chat-bacground-color: white;
+  --primary-color: #00ABE1;
+  --secondary-color: #161F6D;
   --width: 70%;
   --sidbar-width: 260px;
+  --main-content-max-width: 48rem;
 }
 
 html,
 body,
 #root {
   height: 100%;
+  /* Choose a good font, open sans */
+  font-family: "Open Sans", "Roboto" sans-serif;
 }
 
 main {
@@ -21,6 +23,14 @@ main {
   flex: 1 1 0%;
   align-items: stretch;
   position: relative;
+}
+
+@media (min-width: 1024px) {
+  main {
+    max-width: var(--main-content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 button,

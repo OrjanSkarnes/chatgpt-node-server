@@ -3,8 +3,12 @@ import { ChatGPTAPI, getOpenAIAuth, ChatGPTAPIBrowser } from 'chatgpt';
 import express from 'express';
 import cors from 'cors';
 
+const { MongoClient } = require('mongodb');
+
+const bodyParser = require('body-parser')
 const app = express();
-app.use(cors());
+
+app.use(cors(), bodyParser.json());
 const port = 3000;
 
 // Initialize browser API
@@ -14,28 +18,35 @@ const api = new ChatGPTAPIBrowser({
 })
 await api.initSession();
 
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = process.env.DATABASE_URL;
-// const client = new MongoClient(uri, { useNewUrlParser: true });
+console.log(process.env.DATABASE_URL)
+// Initialize mongodb
+const client = new MongoClient(process.env.DATABASE_URL || '');
 
-// app.post('/conversations', async(req, res) => {
+// Get conversations
+app.post('/conversations', async (req, res) => {
+    const conversations = req.body;
+    console.log(req.body)
+    try {
+        await client.connect();
+
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+})
+
+// app.post('/conversations', async (req, res) => {
 //     const conversations = req.body;
-//     console.log('trying to post conversation to mongodb')
 //     console.log(req.body)
-//     client.connect((err: any) => {
-//         // Connect to the MongoDB server
-//         console.log('Connected to MongoDB server');
-//         const db = client.db("conversations");
+//     try {
+//         await client.connect();
 
-//         db.collection("coversations").insertOne(conversations, (err: any, result: any) => {
-//             if (err) {
-//                 // Handle error
-//                 return res.send({ error: "An error occurred" });
-//             }
-//             res.send(result.ops[0]);
-//         });
-//         client.close();
-//     });
+//     } catch (e) {
+//         console.error(e);
+//     } finally {
+//         await client.close();
+//     }
 // })
 
 
@@ -53,7 +64,6 @@ app.get('/chat/:message', async (req, res) => {
 
 // Reset the thread
 app.get('/reset', async (req, res) => {
-    console.log('trying to reset thread')
     try {
         await api.resetThread();
         res.send({ message: 'Thread reset' });

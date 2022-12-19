@@ -31,11 +31,8 @@ function App() {
   const sendToGPT = async (message: string) => {
     setLoading(true);
     // set gpt response to be loading
-    setGptResponses([...gptResponses, "Loading..."]);
-    const resp = await (await fetch(`${import.meta.env.VITE_BACKEND_URL}/chat/${message}`)).json();
-    // remove the loading message and add the response
-    gptResponses.pop();
-    // If there is an error, set the error message
+    const resp = await (await fetch(`${import.meta.env.VITE_BACKEND_URL}/chat/${message}`)).json()
+     // remove the loading message and add the response
     if (resp.error !== undefined) {
       setGptResponses([...gptResponses, resp.error]);
       setLoading(false);
@@ -46,17 +43,17 @@ function App() {
   }
 
   const postConversation = async () => {
-    // Post the conversation to the backend
+    // post the conversation to the backend
     const resp = await (await fetch(`${import.meta.env.VITE_BACKEND_URL}/conversations`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        conversation: messages,
+        messages: messages,
         response: gptResponses
       })
-    })).json();
+    }).then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err)));
   }
 
   const clearThread = async () => {
@@ -79,9 +76,9 @@ function App() {
         <main>
           <h1>Chat with {selectedOption.label || "ChatGPT"}</h1>
           {selectedOption.info && <p>{selectedOption.info}</p>}
-          {/* <button onClick={postConversation}>Post Conversation</button> */}
+          <button onClick={postConversation}>Post Conversation</button>
           <Dropdown Change={dropdownChange}></Dropdown>
-          <ChatContainer leftChats={gptResponses} rightChats={messages} selectedOption={selectedOption}></ChatContainer>
+          <ChatContainer leftChats={gptResponses} rightChats={messages} selectedOption={selectedOption} loading={loading}></ChatContainer>
           <ChatInput onSendMessage={sendToChatGPT} loading={loading} />
         </main>
       </div>
